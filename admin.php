@@ -27,6 +27,7 @@ font-style:bold;
 <input type='text' name='username' id='username'  /><br/><br/>
 <label for='password' >Password :</label>
 <input type='password' name='password' id='password' /><br/><br/>
+<input type='conpassword' name='conpassword' id='conpassword' /><br/><br/>
 <input type='submit' name='Submit' value='Submit' />
 </form>
 <?php
@@ -34,8 +35,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 {
 $sql = mysqli_connect("localhost", "root", "","credit_card_database");
  $myusername = $_POST['username'];
- $mypassword = $_POST['password']; 
-      $que = "SELECT * FROM admin WHERE username = '$myusername' and password = '$mypassword'";
+ $myconpassword = $_POST['conpassword'];
+	 $mypassword = $_POST['password'];
+      if($myconpassword == $mypassword){
+	$que = "SELECT * FROM admin WHERE username = '$myusername' and password = '$mypassword'";
       $result = mysqli_query($sql,$que);
       $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
 	if(is_array($row)) 
@@ -46,6 +49,7 @@ $sql = mysqli_connect("localhost", "root", "","credit_card_database");
 	else {
 	 echo "<script type='text/javascript'>alert('INVALID DETAILS');</script>";
 	}
+      }
 }  
 
 ?>
